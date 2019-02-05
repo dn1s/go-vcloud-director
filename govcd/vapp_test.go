@@ -465,7 +465,7 @@ func (vcd *TestVCD) Test_AddAndRemoveIsolatedNetwork(check *C) {
 
 	err = vcd.vapp.Refresh()
 	check.Assert(err, IsNil)
-	networkConfig, err := vcd.vapp.GetNetworkConfig()
+	networkConfig, err := vcd.vapp.GetNetworkConfigSection()
 	check.Assert(err, IsNil)
 
 	networkFound := types.VAppNetworkConfiguration{}
@@ -497,7 +497,7 @@ func (vcd *TestVCD) Test_AddAndRemoveIsolatedNetwork(check *C) {
 
 	err = vcd.vapp.Refresh()
 	check.Assert(err, IsNil)
-	networkConfig, err = vcd.vapp.GetNetworkConfig()
+	networkConfig, err = vcd.vapp.GetNetworkConfigSection()
 	check.Assert(err, IsNil)
 
 	isExist := false
