@@ -11,8 +11,6 @@ FEATURES:
 * Added metadata add/remove functions to vm
 
 IMPROVEMENTS:
-
-<<<<<<< HEAD
 * vApp vapp.PowerOn() implicitly waits for vApp to exit "UNRESOLVED" state which occurs shortly after creation and causes vapp.PowerOn() failure.
 * VM has new functions which allows to configure cores for CPU. VM.ChangeCPUCountWithCore()
 
@@ -20,6 +18,5 @@ BREAKING CHANGES:
 
 * Deprecate vApp.ChangeCPUCountWithCore() and vApp.ChangeCPUCount()
 
-=======
 * vApp metadata now is attached to the vapp rather to first vm in vapp.
->>>>>>> 6019b7f... Updated CHANGELOG.md
+* vApp metadata is no longer added to first VM in vApp it will be added to vApp directly instead.
