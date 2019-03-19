@@ -11,8 +11,13 @@ FEATURES:
 * Added metadata add/remove functions to vm
 
 IMPROVEMENTS:
+<<<<<<< HEAD
 * vApp vapp.PowerOn() implicitly waits for vApp to exit "UNRESOLVED" state which occurs shortly after creation and causes vapp.PowerOn() failure.
 * VM has new functions which allows to configure cores for CPU. VM.ChangeCPUCountWithCore()
+=======
+
+* vApp vapp.PowerOn() implicitly waits for vApp to exit "UNRESOLVED" state which occurs shortly after creation and causes vapp.PowerOn() failure.
+>>>>>>> 5d1661f... Add blocking method for vApp status change tracking (#169)
 
 BACKWARDS INCOMPATIBILITIES / NOTES
 
