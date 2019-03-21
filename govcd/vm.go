@@ -264,22 +264,21 @@ func (vm *VM) ChangeNetworkConfig(networks []map[string]interface{}, ip string) 
 				ipAddress := "Any"
 
 				// TODO: Review current behaviour of using DHCP when left blank
-				if ip == "dhcp" || network["ip"].(string) == "dhcp" {
+				if network["ip"].(string) == "dhcp" {
 					ipAllocationMode = "DHCP"
-				} else if ip == "allocated" || network["ip"].(string) == "allocated" {
+				} else if network["ip"].(string) == "allocated" {
 					ipAllocationMode = "POOL"
-				} else if ip == "none" || network["ip"].(string) == "none" {
+				} else if network["ip"].(string) == "none" {
 					ipAllocationMode = "NONE"
-				} else if ip != "" {
-					ipAllocationMode = "MANUAL"
-					// TODO: Check a valid IP has been given
-					ipAddress = ip
 				} else if network["ip"].(string) != "" {
 					ipAllocationMode = "MANUAL"
-					// TODO: Check a valid IP has been given
-					ipAddress = network["ip"].(string)
-				} else if ip == "" {
-					ipAllocationMode = "DHCP"
+					if net.ParseIP(network["ip"].(string)) != nil {
+						ipAddress = network["ip"].(string)
+					} else {
+						ipAllocationMode = "DHCP"
+					}
+				} else {
+					ipAllocationMode = network["ip_allocation_mode"].(string)
 				}
 
 				util.Logger.Printf("[DEBUG] Function ChangeNetworkConfig() for %s invoked", network["orgnetwork"])

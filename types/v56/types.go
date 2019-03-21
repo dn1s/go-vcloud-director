@@ -256,13 +256,13 @@ type NetworkConfigSection struct {
 // Description: Represents a network connection in the virtual machine.
 // Since: 0.9
 type NetworkConnection struct {
-	Network                 string `xml:"network,attr"`                      // Name of the network to which this NIC is connected.
-	NetworkConnectionIndex  int    `xml:"NetworkConnectionIndex"`            // Virtual slot number associated with this NIC. First slot number is 0.
-	IPAddress               string `xml:"IpAddress,omitempty"`               // IP address assigned to this NIC.
-	ExternalIPAddress       string `xml:"ExternalIpAddress,omitempty"`       // If the network to which this NIC connects provides NAT services, the external address assigned to this NIC appears here.
-	IsConnected             bool   `xml:"IsConnected"`                       // If the virtual machine is undeployed, this value specifies whether the NIC should be connected upon deployment. If the virtual machine is deployed, this value reports the current status of this NIC's connection, and can be updated to change that connection status.
-	MACAddress              string `xml:"MACAddress,omitempty"`              // MAC address associated with the NIC.
-	IPAddressAllocationMode string `xml:"IpAddressAllocationMode"`           // IP address allocation mode for this connection. One of: POOL (A static IP address is allocated automatically from a pool of addresses.) DHCP (The IP address is obtained from a DHCP service.) MANUAL (The IP address is assigned manually in the IpAddress element.) NONE (No IP addressing mode specified.)
+	Network                 string `xml:"network,attr"`                // Name of the network to which this NIC is connected.
+	NetworkConnectionIndex  int    `xml:"NetworkConnectionIndex"`      // Virtual slot number associated with this NIC. First slot number is 0.
+	IPAddress               string `xml:"IpAddress,omitempty"`         // IP address assigned to this NIC.
+	ExternalIPAddress       string `xml:"ExternalIpAddress,omitempty"` // If the network to which this NIC connects provides NAT services, the external address assigned to this NIC appears here.
+	IsConnected             bool   `xml:"IsConnected"`                 // If the virtual machine is undeployed, this value specifies whether the NIC should be connected upon deployment. If the virtual machine is deployed, this value reports the current status of this NIC's connection, and can be updated to change that connection status.
+	MACAddress              string `xml:"MACAddress,omitempty"`        // MAC address associated with the NIC.
+	IPAddressAllocationMode string `xml:"IpAddressAllocationMode"`     // IP address allocation mode for this connection. One of: POOL (A static IP address is allocated automatically from a pool of addresses.) DHCP (The IP address is obtained from a DHCP service.) MANUAL (The IP address is assigned manually in the IpAddress element.) NONE (No IP addressing mode specified.)
 	// Type of network adapter to be used for this connection. One of:
 	// VLANCE (emulated version of the AMD 79C970 PCnet32-LANCE NIC)
 	// E1000 (emulated version of the Intel 82545EM Gigabit Ethernet NIC)
