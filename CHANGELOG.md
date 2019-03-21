@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ## 2.1.0 (March 21, 2019)
+=======
+## 2.1.0 (Unleased)
+>>>>>>> 656eaa9... Update release date
 
 ARCHITECTURAL:
 
@@ -18,6 +22,7 @@ IMPROVEMENTS:
 
 * vApp vapp.PowerOn() implicitly waits for vApp to exit "UNRESOLVED" state which occurs shortly after creation and causes vapp.PowerOn() failure.
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 5d1661f... Add blocking method for vApp status change tracking (#169)
 =======
 <<<<<<< HEAD
@@ -30,10 +35,15 @@ BACKWARDS INCOMPATIBILITIES / NOTES
 * vApp metadata now is attached to the vapp rather to first vm in vapp.
 * vApp metadata is no longer added to first VM in vApp it will be added to vApp directly instead.
 =======
+=======
+>>>>>>> 656eaa9... Update release date
 * VM has new functions which allows to configure cores for CPU. VM.ChangeCPUCountWithCore()
 
 BREAKING CHANGES:
 
 * Deprecate vApp.ChangeCPUCountWithCore() and vApp.ChangeCPUCount()
 
->>>>>>> d37df9c... Add cpu cores support for VM and deprecated func for vApp (#171)
+
+BACKWARDS INCOMPATIBILITIES / NOTES
+
+* vApp metadata is no longer added to first VM in vApp it will be added to vApp directly instead.
