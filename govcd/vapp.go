@@ -9,6 +9,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"net"
 	"net/url"
 	"strconv"
 	"time"
@@ -1082,7 +1083,7 @@ func (vapp *VApp) GetNetworkConfigSection() (*types.NetworkConfigSection, error)
 // Function adds existing VDC network to vApp
 func (vapp *VApp) AddRAWNetworkConfig() (Task, error) {
 
-	vAppNetworkConfig, err := vapp.GetNetworkConfig()
+	vAppNetworkConfig, err := vapp.GetNetworkConfigSection()
 	if err != nil {
 		return Task{}, fmt.Errorf("error getting vApp networks: %#v", err)
 	}
