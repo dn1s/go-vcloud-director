@@ -185,7 +185,7 @@ func (vapp *VApp) AddVM(networks []map[string]interface{}, vappTemplate VAppTemp
 			vcomp.SourcedItem.InstantiationParams.NetworkConnectionSection.NetworkConnection[index].NetworkAdapterType = network["adapter_type"].(string)
 		}
 
-		if network["is_primary"].(string) == "true" {
+		if network["is_primary"].(bool) == true {
 			vcomp.SourcedItem.InstantiationParams.NetworkConnectionSection.PrimaryNetworkConnectionIndex = index
 		}
 
@@ -1080,14 +1080,10 @@ func (vapp *VApp) GetNetworkConfigSection() (*types.NetworkConfigSection, error)
 	return networkConfig, nil
 }
 
-// Function adds existing VDC network to vApp
+// Add RAW NetworkConfigSection to vApp only use this if you don't want to have
+// any network attached to vApp.
 func (vapp *VApp) AddRAWNetworkConfig() (Task, error) {
-
-	vAppNetworkConfig, err := vapp.GetNetworkConfigSection()
-	if err != nil {
-		return Task{}, fmt.Errorf("error getting vApp networks: %#v", err)
-	}
-	networkConfigurations := vAppNetworkConfig.NetworkConfig
+	networkConfigurations := &types.NetworkConfigSection{}
 
 	output, err := xml.MarshalIndent(networkConfigurations, "  ", "    ")
 	if err != nil {
