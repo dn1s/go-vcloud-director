@@ -185,7 +185,7 @@ func (vapp *VApp) AddVM(networks []map[string]interface{}, vappTemplate VAppTemp
 			vcomp.SourcedItem.InstantiationParams.NetworkConnectionSection.NetworkConnection[index].NetworkAdapterType = network["adapter_type"].(string)
 		}
 
-		if network["is_primary"].(string) == "true" {
+		if network["is_primary"].(bool) == true {
 			vcomp.SourcedItem.InstantiationParams.NetworkConnectionSection.PrimaryNetworkConnectionIndex = index
 		}
 
