@@ -142,9 +142,7 @@ func (vapp *VApp) AddVM(networks []map[string]interface{}, vappTemplate VAppTemp
 			InstantiationParams: &types.InstantiationParams{
 				NetworkConnectionSection: &types.NetworkConnectionSection{
 					Info:                          "Network config for sourced item",
-					HREF:                          vappTemplate.VAppTemplate.Children.VM[0].NetworkConnectionSection.HREF,
-					Type:                          vappTemplate.VAppTemplate.Children.VM[0].NetworkConnectionSection.Type,
-					PrimaryNetworkConnectionIndex: vappTemplate.VAppTemplate.Children.VM[0].NetworkConnectionSection.PrimaryNetworkConnectionIndex,
+					PrimaryNetworkConnectionIndex: 0,
 				},
 			},
 		},
