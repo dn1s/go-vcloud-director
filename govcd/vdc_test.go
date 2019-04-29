@@ -6,7 +6,6 @@ package govcd
 
 import (
 	"fmt"
-
 	"github.com/vmware/go-vcloud-director/v2/types/v56"
 	. "gopkg.in/check.v1"
 )
@@ -15,11 +14,11 @@ func (vcd *TestVCD) Test_FindVDCNetwork(check *C) {
 
 	fmt.Printf("Running: %s\n", check.TestName())
 
-	net, err := vcd.vdc.FindVDCNetwork(vcd.config.VCD.Network)
+	net, err := vcd.vdc.FindVDCNetwork(vcd.config.VCD.Networks[0])
 
 	check.Assert(err, IsNil)
 	check.Assert(net, NotNil)
-	check.Assert(net.OrgVDCNetwork.Name, Equals, vcd.config.VCD.Network)
+	check.Assert(net.OrgVDCNetwork.Name, Equals, vcd.config.VCD.Networks[0])
 	check.Assert(net.OrgVDCNetwork.HREF, Not(Equals), "")
 
 	// find Invalid Network
@@ -111,7 +110,7 @@ func (vcd *TestVCD) Test_ComposeVApp(check *C) {
 
 	// Populate OrgVDCNetwork
 	networks := []*types.OrgVDCNetwork{}
-	net, err := vcd.vdc.FindVDCNetwork(vcd.config.VCD.Network)
+	net, err := vcd.vdc.FindVDCNetwork(vcd.config.VCD.Networks[0])
 	networks = append(networks, net.OrgVDCNetwork)
 	check.Assert(err, IsNil)
 	// Populate Catalog
@@ -130,7 +129,7 @@ func (vcd *TestVCD) Test_ComposeVApp(check *C) {
 	// Compose VApp
 	task, err := vcd.vdc.ComposeVApp(networks, vapptemplate, storageprofileref, TestComposeVapp, TestComposeVappDesc, true)
 	check.Assert(err, IsNil)
-	check.Assert(task.Task.OperationName, Equals, "vdcComposeVapp")
+	check.Assert(task.Task.Tasks.Task[0].OperationName, Equals, "vdcComposeVapp")
 	// Get VApp
 	vapp, err := vcd.vdc.FindVAppByName(TestComposeVapp)
 	check.Assert(err, IsNil)
@@ -150,6 +149,7 @@ func (vcd *TestVCD) Test_ComposeVApp(check *C) {
 	if err != nil {
 		panic(err)
 	}
+	vapp.BlockWhileStatus("UNRESOLVED", vapp.client.MaxRetryTimeout)
 	vapp_status, err = vapp.GetStatus()
 	check.Check(err, IsNil)
 	check.Check(vapp_status, Equals, "POWERED_OFF")

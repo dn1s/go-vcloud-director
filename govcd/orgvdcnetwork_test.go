@@ -15,10 +15,10 @@ func (vcd *TestVCD) Test_NetRefresh(check *C) {
 
 	fmt.Printf("Running: %s\n", check.TestName())
 
-	network, err := vcd.vdc.FindVDCNetwork(vcd.config.VCD.Network)
+	network, err := vcd.vdc.FindVDCNetwork(vcd.config.VCD.Networks[0])
 
 	check.Assert(err, IsNil)
-	check.Assert(network.OrgVDCNetwork.Name, Equals, vcd.config.VCD.Network)
+	check.Assert(network.OrgVDCNetwork.Name, Equals, vcd.config.VCD.Networks[0])
 	save_network := network
 
 	err = network.Refresh()
@@ -54,11 +54,11 @@ func (vcd *TestVCD) Test_CreateOrgVdcNetworkEGW(check *C) {
 	}
 
 	var networkConfig = types.OrgVDCNetwork{
-		Xmlns: "http://www.vmware.com/vcloud/v1.5",
+		Xmlns: types.XMLNamespaceVCloud,
 		Name:  networkName,
 		// Description: "Created by govcd tests",
 		Configuration: &types.NetworkConfiguration{
-			FenceMode: "natRouted",
+			FenceMode: types.FenceModeNAT,
 			IPScopes: &types.IPScopes{
 				IPScope: types.IPScope{
 					IsInherited: false,
@@ -107,11 +107,11 @@ func (vcd *TestVCD) Test_CreateOrgVdcNetworkIso(check *C) {
 	}
 
 	var networkConfig = types.OrgVDCNetwork{
-		Xmlns: "http://www.vmware.com/vcloud/v1.5",
+		Xmlns: types.XMLNamespaceVCloud,
 		Name:  networkName,
 		// Description: "Created by govcd tests",
 		Configuration: &types.NetworkConfiguration{
-			FenceMode: "isolated",
+			FenceMode: types.FenceModeIsolated,
 			/*One of:
 				bridged (connected directly to the ParentNetwork),
 			  isolated (not connected to any other network),
@@ -173,10 +173,10 @@ func (vcd *TestVCD) Test_CreateOrgVdcNetworkDirect(check *C) {
 	}
 	// Note that there is no IPScope for this type of network
 	var networkConfig = types.OrgVDCNetwork{
-		Xmlns: "http://www.vmware.com/vcloud/v1.5",
+		Xmlns: types.XMLNamespaceVCloud,
 		Name:  networkName,
 		Configuration: &types.NetworkConfiguration{
-			FenceMode: "bridged",
+			FenceMode: types.FenceModeBridged,
 			ParentNetwork: &types.Reference{
 				HREF: externalNetwork.HREF,
 				Name: externalNetwork.Name,
